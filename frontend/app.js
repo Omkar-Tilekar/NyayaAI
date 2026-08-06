@@ -1,7 +1,7 @@
 // Base configuration
 const API_BASE_URL = "http://localhost:8000/api/v1";
 
-// 🟡 SAFE TO COPY: Tab Switching Logic
+// Tab Switching Logic
 document.addEventListener("DOMContentLoaded", () => {
     const tabs = document.querySelectorAll(".nav-btn");
     const contents = document.querySelectorAll(".tab-content");
@@ -38,13 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
 let currentDrafts = null;
 
 // =====================================================================
-// 🟢 TYPE YOURSELF: Hand-type this client-server integration logic.
-//
-// Why this block exists: To fetch dynamic JSON records from the FastAPI
-// backend using asynchronous JavaScript (async/await and fetch APIs).
-//
-// Common mistake: Forgetting to stringify request bodies or forgetting to 
-// include headers like "Content-Type": "application/json".
+// Frontend Controller Logic (Maintained by Assistant)
+// Handles API calls connecting the UI views to backend endpoints.
 // =====================================================================
 
 // 1. Research Fetch Handler
@@ -55,8 +50,6 @@ async function handleSearch() {
     const resultsContainer = document.getElementById("search-results");
     resultsContainer.innerHTML = '<div class="empty-state"><p>Querying backend databases...</p></div>';
 
-    // 🟢 Hand-type the fetch block below:
-    /*
     try {
         const response = await fetch(`${API_BASE_URL}/research/search?q=${encodeURIComponent(query)}`);
         if (!response.ok) throw new Error("Search request failed.");
@@ -66,7 +59,6 @@ async function handleSearch() {
     } catch (error) {
         resultsContainer.innerHTML = `<div class="empty-state"><p style="color:#ef4444;">Error: ${error.message}</p></div>`;
     }
-    */
 }
 
 // 2. Document Fetch Handler (Details lookup)
@@ -77,8 +69,6 @@ async function fetchFullDocument(mongoId) {
     viewerBody.innerHTML = '<p>Retrieving case context from MongoDB...</p>';
     badge.innerText = "Connecting...";
 
-    // 🟢 Hand-type the document retrieval fetch below:
-    /*
     try {
         const response = await fetch(`${API_BASE_URL}/research/document/${mongoId}`);
         if (!response.ok) throw new Error("Could not retrieve document.");
@@ -90,7 +80,6 @@ async function fetchFullDocument(mongoId) {
         viewerBody.innerText = `Error: ${error.message}`;
         badge.innerText = "Error";
     }
-    */
 }
 
 // 3. Drafting Fetch Handler
@@ -106,8 +95,6 @@ async function handleDraftCompile() {
     const outputDisplay = document.getElementById("draft-text-display");
     outputDisplay.innerHTML = '<div class="empty-state"><p>Compiling petition sections via LLM pipeline...</p></div>';
 
-    // 🟢 Hand-type the POST request to drafting API below:
-    /*
     try {
         const response = await fetch(`${API_BASE_URL}/drafting/draft`, {
             method: "POST",
@@ -123,7 +110,6 @@ async function handleDraftCompile() {
     } catch (error) {
         outputDisplay.innerHTML = `<div class="empty-state"><p style="color:#ef4444;">Error: ${error.message}</p></div>`;
     }
-    */
 }
 
 // 4. Ingestion Fetch Handler
@@ -142,8 +128,6 @@ async function handleIngestionSubmit() {
         jobsContainer.innerHTML = '';
     }
 
-    // 🟢 Hand-type the background job dispatch fetch below:
-    /*
     try {
         const response = await fetch(`${API_BASE_URL}/admin/ingest`, {
             method: "POST",
@@ -158,13 +142,9 @@ async function handleIngestionSubmit() {
     } catch (error) {
         alert(`Ingestion Error: ${error.message}`);
     }
-    */
 }
 
-// =====================================================================
-// 🟡 SAFE TO COPY: UI Rendering Helpers
-// =====================================================================
-
+// UI Rendering Helpers
 function renderSearchResults(results) {
     const container = document.getElementById("search-results");
     container.innerHTML = "";
@@ -213,7 +193,7 @@ function addIngestionJobToQueue(title, mongoId, status) {
     `;
     queue.prepend(item);
 
-    // Mock completion transition
+    // Mock completion transition (4s delay representation)
     setTimeout(() => {
         const badge = item.querySelector(".status-badge");
         badge.className = "status-badge done";
