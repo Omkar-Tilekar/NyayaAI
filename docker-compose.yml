@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # MongoDB - Original Case Document and Template Store
   mongodb:
